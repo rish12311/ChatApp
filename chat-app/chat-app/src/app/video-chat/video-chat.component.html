@@ -1,0 +1,43 @@
+<div>
+    <div class="video">
+        <h2><b>Connect with Doctor!</b></h2>
+
+        <!-- Video & screen share container -->
+        <input type="text" placeholder="Doctor Id" [readonly]="isFrozen" [(ngModel)]='name' />
+        <div id="remote-video" class="remote"></div>
+    </div>
+
+    <div style="display: flex; flex-direction: row;">
+        <div class="video-mine" style="margin-right: 10px;">
+            <video #localVideo autoplay muted class="local-video"></video>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <input type="text" placeholder="Your Id" [readonly]="isFrozen" [(ngModel)]='customId' />
+        </div>
+    </div>
+
+    <div style="margin-right:100px; align-self:right">
+        <!-- Additional content or styling for the right section if needed -->
+    </div>
+</div>
+
+<br>
+<div class="in">
+
+    <br>
+    <button class="btn" (click)="connectWithPeer()">Call</button>
+
+    <button class="btn" *ngIf="activeCall" (click)="answerCall()">Accept</button>
+    <button class="btn" *ngIf="activeCall" (click)="declineCall()">Decline</button>
+</div>
+
+
+<button class="btn btn-primary" (click)="refreshSection()">Refresh?</button>
+<button class="btn btn-primary" (click)="shareScreen()">Screen share</button>
+<select id="doc" #doc required (change)="SelectedUser(doc.value)">
+    <option value="dsd">Available Doctors</option>
+    <ng-container *ngFor="let arrr1 of arr1">
+        <option *ngIf="isLoggedIn(arrr1); else notLoggedIn" [value]="arrr1.username">{{ arrr1.username }}</option>
+        <ng-template #notLoggedIn></ng-template>
+    </ng-container>
+</select>
